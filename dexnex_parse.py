@@ -1,5 +1,5 @@
 import time
-from IPython.display import SVG, display
+
 
 import matplotlib.pyplot as plt
 import numpy as np
