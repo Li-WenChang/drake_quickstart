@@ -60,9 +60,10 @@ class RigidTransformSource(LeafSystem):
 
     def CalcOutput(self, context, output):
         time = simulator.get_context().get_time()
-        r = 0.3 # radius = 0.3 m
-        omega = np.pi*2/5 # period = 5 sec
-        x = r*np.cos(omega*time)
+        r = 0.4 # radius = 0.3 m
+        T = 8  # period
+        omega = np.pi*2/T # period = 5 sec
+        x = r*np.cos(omega*time + np.pi/2)
         z = np.abs(r*np.sin(omega*time))
         
         pose = RigidTransform(RollPitchYaw(0.0, np.pi/2, 0.0), [x, 0.0, 1.0])
@@ -204,7 +205,7 @@ simulator.set_target_realtime_rate(1.0)
 
 time.sleep(5)
 
-finish_time = 20.0
+finish_time = 30.0
 simulator.AdvanceTo(finish_time)
 
 
@@ -222,7 +223,7 @@ plt.plot(t, command_data.data()[5, :], label='command joint 5')
 plt.plot(t, command_data.data()[6, :], label='command joint 6')
 
 plt.xlabel('time')
-plt.ylabel('command')
+plt.ylabel('joint position command')
 plt.legend()
 plt.show()
 
