@@ -55,8 +55,9 @@ parser = Parser(plant)
 import os
 dexnex_path = os.path.join(os.path.dirname(__file__), "dexnex_description", "avatar_drake.urdf")
 
+# because the urdf now is standalone (does not depend on any ROS pkg, so don't need the following line)
+# parser.package_map().PopulateFromEnvironment('AMENT_PREFIX_PATH')
 
-parser.package_map().PopulateFromEnvironment('AMENT_PREFIX_PATH')
 (dexnex,) = parser.AddModels(dexnex_path)
 
 
