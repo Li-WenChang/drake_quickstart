@@ -52,7 +52,9 @@ plant, scene_graph = AddMultibodyPlantSceneGraph(builder, 0.005)
 # Create a single Parser instance for the plant
 parser = Parser(plant)
 
-dexnex_path = "//home/li-wen/Desktop/drake_quickstart/dexnex_description/avatar_drake.urdf"
+import os
+dexnex_path = os.path.join(os.path.dirname(__file__), "dexnex_description", "avatar_drake.urdf")
+
 
 parser.package_map().PopulateFromEnvironment('AMENT_PREFIX_PATH')
 (dexnex,) = parser.AddModels(dexnex_path)
