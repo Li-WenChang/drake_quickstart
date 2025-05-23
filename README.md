@@ -14,17 +14,42 @@ pip install --upgrade pip       # (Optional but recommended)
 pip install drake               # install drake
 ````
 
+Try to run the script:
+````bash
+python3 dexnex_parse.py
+````
+
+If you run the script and see an error like this:
+
+````bash
+ModuleNotFoundError: No module named 'YYYYY'
+````
+
+It means a required Python package is missing from your virtual environment.
+
+- If the import statement for 'YYYYY' is not used anywhere in the script, you can safely delete that import line.
+
+- If the package is used in the script, install it by running the following command inside your activated virtual environment:
+ 
+After running the script, you should see a message like:
+```` rust
+INFO:drake:Meshcat listening for connections at http://localhost:7000
+````
+
+Open the provided link in your browser to view Drake's simulation environment. You should see the dexnex robot falling due to the gravity.
+
 
 ## 2. Drake
 
 ### 2.1 Parsing robots
 1. **Activate your Drake environment**:
-   Make sure the virtual environment where Drake is installed is active.
+   Make sure dexnex_env is active.
 
 2. **Run the script**:
    ````bash
    python3 iiwa_parsing.py
    ````
+
 3. **Access the simulation**:  
    After running the script, you should see a message like:
    ```` rust
@@ -33,7 +58,7 @@ pip install drake               # install drake
    
    Open the provided link in your browser to view Drake's simulation environment. You should see a iiwa robot arm falling due to the gravity.
 #### Code Explanation
-In Drake, we use different systems to do different things. The following line adds two important systems, `MultibodyPlant` and `SceneGraph` into the diagrm. The former handles all the physics and the later handles rendering.
+In Drake, we use different systems to do different things. The following line adds two important systems, `MultibodyPlant` and `SceneGraph` into the diagrm. The former handles all the physics (like a physics engine?) and the later handles rendering.
 
 ```phtyon
 python plant, scene_graph = AddMultibodyPlantSceneGraph(builder, 0.0)
@@ -149,9 +174,130 @@ That’s all it takes to set up a basic motion controller! Again, I recommend co
 > Russ Tedrake’s response (he’s the creator of Drake) explains it in detail.
 
 
-### 2.3 Advanced control
+### 2.3 Customoized System
+The main purpose of this section is to show you how to build a custom system to perform a specific task—since you won’t always find a pre-built Drake system that does exactly what you need. Additionally, I’ll introduce a useful system called `DifferentialInverseKinematicsIntegrator`, which solves inverse kinematics for you. This was actually my first time using it, and it took me over two hours to figure out how to use it properly—so if you’re feeling frustrated with those pre-built systems, you’re definitely not alone.
+#### Code Explanation
+Let's first take a look at the custom system which is relatively straight forward
+```phtyon
+class EE_Pose(LeafSystem):
+    '''
+    this system outputs a desired end-effector pose in the form of transformation matrix
+    '''
+    def __init__(self):
+        super().__init__()
+
+        # Declare a fixed abstract output port with a hardcoded pose
+        self.DeclareAbstractOutputPort(
+            "X_AE",
+            lambda: AbstractValue.Make(RigidTransform()),
+            self.CalcOutput
+        )
+
+    def CalcOutput(self, context, output):
+        time = simulator.get_context().get_time()
+        r = 0.4 # radius = 0.3 m
+        T = 8  # period
+        omega = np.pi*2/T # period = 5 sec
+        x = r*np.cos(omega*time + np.pi/2)
+        z = np.abs(r*np.sin(omega*time))
+        
+        pose = RigidTransform(RollPitchYaw(0.0, np.pi/2, 0.0), [x, 0.0, 1.0])
+        output.set_value(pose)
+```
+First, we inherit from LeafSystem, which is the base class for all systems in Drake. In the `__init__` constructor, we define the system’s output ports, input ports, and any other instance variables. In this particular case, we only need to define a single output port.
+
+When declaring an output port, you must specify its type. Drake supports two main types: `AbstractValue` (for arbitrary Python objects like transforms) and vector-valued outputs (for numerical arrays). Here, we use an AbstractValue to output a `RigidTransform`.
+
+To declare the port, we call `DeclareAbstractOutputPort`, providing the name of the port `("X_AE")`, a function that returns a default value `(lambda: AbstractValue.Make(RigidTransform()))`, and a callback `(self.CalcOutput)` that calculates the actual output.
+
+The `CalcOutput` function contains the logic that computes the output at each time step. In this example, we generate a Simple Harmonic Motion trajectory for the end-effector, independent of any input. In fact, this system has no inputs. At the end of this section, I’ll include examples that show how to handle systems with inputs. Keep in mind that the syntax in Drake can be quite complex, so most of the time I use ChatGPT to help generate the class structure, and then I only manually write the `CalcOutput` function to define the specific behavior I need.
+
+Next, we use the `DifferentialInverseKinematicsIntegrator`, a built-in Drake system that continuously solves inverse kinematics (IK) in velocity space and integrates it over time to produce joint positions.
+```python
+params = DifferentialInverseKinematicsParameters(
+    num_positions=plant.num_positions(),
+    num_velocities=plant.num_velocities()
+)
+
+params.set_time_step(0.01)
+
+params.set_joint_position_limits(
+    (plant.GetPositionLowerLimits(),
+    plant.GetPositionUpperLimits())
+)
+params.set_joint_velocity_limits((-1.0 * np.ones(plant.num_velocities()),
+                                 1.0 * np.ones(plant.num_velocities())))
+
+
+# Choose end-effector frame
+end_effector_frame = plant.GetFrameByName("iiwa_link_7", iiwa)
+
+base_frame = plant.GetFrameByName("iiwa_link_0", iiwa)
+
+
+# Add the Diff IK Integrator system
+ik_solver = builder.AddSystem(
+    DifferentialInverseKinematicsIntegrator(
+        plant,
+        base_frame,
+        end_effector_frame,
+        0.01,
+        params)
+    )
+```
+The key step is to first create a `DifferentialInverseKinematicsParameters` object, which defines various constraints and limits for the IK solver. One thing to note here is that the `time_step` I set in parameters is the integration time step not the simulator's time step. The rest of the code is relatively self-explanatory
+
+**Diagram:**
 ![Inverse Kinematics diagram](iiwa_IK_Diagram.png)
 
+**More Custom System example**  
+This is a system I use a lot to integrate many data into a one single output.
+```python
+class Stacker(LeafSystem):
+    """Stacks inputs from input ports into a single numeric vector output."""
+
+    def __init__(self):
+        super().__init__()
+        self.num_robot_state = simulation_plant.num_positions(robot)*2 
+        self.num_end_effector_state = 7+6
+        self.num_action = simulation_plant.num_positions(robot)
+        self.num_goal_pose = 7
+        self.num_current_box_pose = 7
+
+        self.total = (self.num_robot_state + 
+                        self.num_end_effector_state +
+                        self.num_action +
+                        self.num_goal_pose +
+                        self.num_current_box_pose)
+
+        
+        # Declare input ports with different sizes
+        self.input_ports = [
+            self.DeclareVectorInputPort(f"robot_state", self.num_robot_state),
+            self.DeclareVectorInputPort(f"end_effector_state", self.num_end_effector_state),
+            self.DeclareVectorInputPort(f"current_pose", self.num_current_box_pose ),
+            self.DeclareVectorInputPort(f"goal_pose", self.num_goal_pose ),
+            self.DeclareVectorInputPort(f"previous_action", self.num_action)
+        ]
+        
+        # Declare output port
+        self.DeclareVectorOutputPort(
+            "observation", 
+            self.total, 
+            self.CalcStackedOutput
+        )
+    
+    def CalcStackedOutput(self, context, output):
+        """Concatenates input vectors into a single stacked output vector."""
+        stacked_vector = np.hstack([
+            self.input_ports[0].Eval(context),
+            self.input_ports[1].Eval(context),
+            self.input_ports[2].Eval(context),
+            self.input_ports[3].Eval(context),
+            self.input_ports[4].Eval(context)/np.pi # scale the action back to [-1, 1]
+        ])
+        output.SetFromVector(stacked_vector)
+```
 
 
 
