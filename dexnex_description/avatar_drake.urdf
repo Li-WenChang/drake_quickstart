@@ -11,6 +11,9 @@
       <geometry>
         <box size="0.9144 0.6096 0.2"/>
       </geometry>
+      <material name="LightWood">
+        <color rgba="0.87 0.72 0.53 1.0"/>
+      </material>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="0.4572 0.3048 -0.1"/>
