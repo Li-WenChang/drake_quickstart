@@ -47,7 +47,10 @@ from pydrake.common.value import AbstractValue
 
 
 
-class RigidTransformSource(LeafSystem):
+class EE_Pose(LeafSystem):
+    '''
+    this system outputs a desired end-effector pose in the form of transformation matrix
+    '''
     def __init__(self):
         super().__init__()
 
@@ -95,7 +98,7 @@ plant.Finalize()
 #--------------------------------------------------------------------------------------------
 U = plant.num_actuators() # U = 7 for iiwa because it has 7 joints
 
-pose_source = builder.AddSystem(RigidTransformSource())
+pose_source = builder.AddSystem(EE_Pose())
 
 params = DifferentialInverseKinematicsParameters(
     num_positions=plant.num_positions(),
@@ -115,14 +118,14 @@ params.set_joint_velocity_limits((-1.0 * np.ones(plant.num_velocities()),
 # Choose end-effector frame
 end_effector_frame = plant.GetFrameByName("iiwa_link_7", iiwa)
 
-world_frame = plant.GetFrameByName("iiwa_link_0", iiwa)
+base_frame = plant.GetFrameByName("iiwa_link_0", iiwa)
 
 
 # Add the Diff IK Integrator system
 ik_solver = builder.AddSystem(
     DifferentialInverseKinematicsIntegrator(
         plant,
-        world_frame,
+        base_frame,
         end_effector_frame,
         0.01,
         params)
