@@ -45,7 +45,7 @@
     <color rgba="0.2 0.2 0.2 1.0"/>
   </material>
   <material name="LightGrey">
-    <color rgba="0.6 0.6 0.6 1.0"/>
+    <color rgba="0.7 0.7 0.7 1.0"/>
   </material>
   <material name="Red">
     <color rgba="0.8 0.0 0.0 1.0"/>
@@ -77,8 +77,8 @@
       <geometry>
         <mesh filename="gofa_arm/meshes/visual/base_from_STL.obj"/>
       </geometry>
-      <material name="">
-        <color rgba="1 1 0 1"/>
+      <material name="LightGrey">
+        <color rgba="0.7 0.7 0.7 1.0"/>
       </material>
     </visual>
   </link>
@@ -98,8 +98,8 @@
       <geometry>
         <mesh filename="gofa_arm/meshes/visual/link_1_from_STL.obj"/>
       </geometry>
-      <material name="">
-        <color rgba="1 1 0 1"/>
+      <material name="LightGrey">
+        <color rgba="0.7 0.7 0.7 1.0"/>
       </material>
     </visual>
   </link>
@@ -119,8 +119,8 @@
       <geometry>
         <mesh filename="gofa_arm/meshes/visual/link_2_from_STL.obj"/>
       </geometry>
-      <material name="">
-        <color rgba="1 1 0 1"/>
+      <material name="LightGrey">
+        <color rgba="0.7 0.7 0.7 1.0"/>
       </material>
     </visual>
   </link>
@@ -140,8 +140,8 @@
       <geometry>
         <mesh filename="gofa_arm/meshes/visual/link_3_from_STL.obj"/>
       </geometry>
-      <material name="">
-        <color rgba="1 1 0 1"/>
+      <material name="LightGrey">
+        <color rgba="0.7 0.7 0.7 1.0"/>
       </material>
     </visual>
   </link>
@@ -161,8 +161,8 @@
       <geometry>
         <mesh filename="gofa_arm/meshes/visual/link_4_from_STL.obj"/>
       </geometry>
-      <material name="">
-        <color rgba="1 1 0 1"/>
+      <material name="White">
+        <color rgba="1.0 1.0 1.0 1.0"/>
       </material>
     </visual>
   </link>
@@ -182,8 +182,8 @@
       <geometry>
         <mesh filename="gofa_arm/meshes/visual/link_5_from_STL.obj"/>
       </geometry>
-      <material name="">
-        <color rgba="1 1 0 1"/>
+      <material name="White">
+        <color rgba="1.0 1.0 1.0 1.0"/>
       </material>
     </visual>
   </link>
@@ -209,8 +209,8 @@
       <geometry>
         <mesh filename="gofa_arm/meshes/visual/link_6_from_STL.obj"/>
       </geometry>
-      <material name="">
-        <color rgba="1 1 0 1"/>
+      <material name="White">
+        <color rgba="1.0 1.0 1.0 1.0"/>
       </material>
     </visual>
   </link>
@@ -364,8 +364,8 @@
       <geometry name="lh_forearm_visual">
         <mesh filename="shadow_hand/meshes/forearm/forearm_E3M5_from_dae.obj" scale="0.001 0.001 0.001"/>
       </geometry>
-      <material name="light_grey">
-        <color rgba="0.90000 0.90000 0.90000 1.0"/>
+      <material name="black">
+        <color rgba="0.0 0.0 0.0 1.0"/>
       </material>
     </visual>
     <collision>
@@ -725,6 +725,9 @@
       <geometry name="lh_ffdistal_visual">
         <mesh filename="shadow_hand/meshes/f_distal/bt_sp/f_distal_bt_sp_from_dae.obj" scale="0.001 0.001 0.001"/>
       </geometry>
+      <material name="BiotacGreen">
+        <color rgba="0.31 0.85 0.42 1.0"/>
+      </material>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
@@ -949,6 +952,9 @@
       <geometry name="lh_mfdistal_visual">
         <mesh filename="shadow_hand/meshes/f_distal/bt_sp/f_distal_bt_sp_from_dae.obj" scale="0.001 0.001 0.001"/>
       </geometry>
+      <material name="BiotacGreen">
+        <color rgba="0.31 0.85 0.42 1.0"/>
+      </material>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
@@ -1173,6 +1179,9 @@
       <geometry name="lh_rfdistal_visual">
         <mesh filename="shadow_hand/meshes/f_distal/bt_sp/f_distal_bt_sp_from_dae.obj" scale="0.001 0.001 0.001"/>
       </geometry>
+      <material name="BiotacGreen">
+        <color rgba="0.31 0.85 0.42 1.0"/>
+      </material>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
@@ -1442,6 +1451,9 @@
       <geometry name="lh_lfdistal_visual">
         <mesh filename="shadow_hand/meshes/f_distal/bt_sp/f_distal_bt_sp_from_dae.obj" scale="0.001 0.001 0.001"/>
       </geometry>
+      <material name="BiotacGreen">
+        <color rgba="0.31 0.85 0.42 1.0"/>
+      </material>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
@@ -1719,8 +1731,8 @@
       <geometry name="lh_thdistal_visual">
         <mesh filename="shadow_hand/meshes/th_distal/bt_sp/th_distal_bt_sp_from_dae.obj" scale="0.001 0.001 0.001"/>
       </geometry>
-      <material name="shadow_thmiddle_material">
-        <color rgba="0.2 0.2 0.2 1.0"/>
+      <material name="BiotacGreen">
+        <color rgba="0.31 0.85 0.42 1.0"/>
       </material>
     </visual>
     <collision>
@@ -1803,8 +1815,8 @@
       <geometry>
         <mesh filename="gofa_arm/meshes/visual/base_from_STL.obj"/>
       </geometry>
-      <material name="">
-        <color rgba="1 1 0 1"/>
+      <material name="LightGrey">
+        <color rgba="0.7 0.7 0.7 1.0"/>
       </material>
     </visual>
   </link>
@@ -1824,8 +1836,8 @@
       <geometry>
         <mesh filename="gofa_arm/meshes/visual/link_1_from_STL.obj"/>
       </geometry>
-      <material name="">
-        <color rgba="1 1 0 1"/>
+      <material name="LightGrey">
+        <color rgba="0.7 0.7 0.7 1.0"/>
       </material>
     </visual>
   </link>
@@ -1845,8 +1857,8 @@
       <geometry>
         <mesh filename="gofa_arm/meshes/visual/link_2_from_STL.obj"/>
       </geometry>
-      <material name="">
-        <color rgba="1 1 0 1"/>
+      <material name="LightGrey">
+        <color rgba="0.7 0.7 0.7 1.0"/>
       </material>
     </visual>
   </link>
@@ -1866,8 +1878,8 @@
       <geometry>
         <mesh filename="gofa_arm/meshes/visual/link_3_from_STL.obj"/>
       </geometry>
-      <material name="">
-        <color rgba="1 1 0 1"/>
+      <material name="LightGrey">
+        <color rgba="0.7 0.7 0.7 1.0"/>
       </material>
     </visual>
   </link>
@@ -1887,8 +1899,8 @@
       <geometry>
         <mesh filename="gofa_arm/meshes/visual/link_4_from_STL.obj"/>
       </geometry>
-      <material name="">
-        <color rgba="1 1 0 1"/>
+      <material name="White">
+        <color rgba="1.0 1.0 1.0 1.0"/>
       </material>
     </visual>
   </link>
@@ -1908,8 +1920,8 @@
       <geometry>
         <mesh filename="gofa_arm/meshes/visual/link_5_from_STL.obj"/>
       </geometry>
-      <material name="">
-        <color rgba="1 1 0 1"/>
+      <material name="White">
+        <color rgba="1.0 1.0 1.0 1.0"/>
       </material>
     </visual>
   </link>
@@ -1935,8 +1947,8 @@
       <geometry>
         <mesh filename="gofa_arm/meshes/visual/link_6_from_STL.obj"/>
       </geometry>
-      <material name="">
-        <color rgba="1 1 0 1"/>
+      <material name="White">
+        <color rgba="1.0 1.0 1.0 1.0"/>
       </material>
     </visual>
   </link>
@@ -2090,8 +2102,8 @@
       <geometry name="rh_forearm_visual">
         <mesh filename="shadow_hand/meshes/forearm/forearm_E3M5_from_dae.obj" scale="0.001 0.001 0.001"/>
       </geometry>
-      <material name="light_grey">
-        <color rgba="0.90000 0.90000 0.90000 1.0"/>
+      <material name="black">
+        <color rgba="0.0 0.0 0.0 1.0"/>
       </material>
     </visual>
     <collision>
@@ -2451,6 +2463,9 @@
       <geometry name="rh_ffdistal_visual">
         <mesh filename="shadow_hand/meshes/f_distal/bt_sp/f_distal_bt_sp_from_dae.obj" scale="0.001 0.001 0.001"/>
       </geometry>
+      <material name="BiotacGreen">
+        <color rgba="0.31 0.85 0.42 1.0"/>
+      </material>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
@@ -2675,6 +2690,9 @@
       <geometry name="rh_mfdistal_visual">
         <mesh filename="shadow_hand/meshes/f_distal/bt_sp/f_distal_bt_sp_from_dae.obj" scale="0.001 0.001 0.001"/>
       </geometry>
+      <material name="BiotacGreen">
+        <color rgba="0.31 0.85 0.42 1.0"/>
+      </material>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
@@ -2899,6 +2917,9 @@
       <geometry name="rh_rfdistal_visual">
         <mesh filename="shadow_hand/meshes/f_distal/bt_sp/f_distal_bt_sp_from_dae.obj" scale="0.001 0.001 0.001"/>
       </geometry>
+      <material name="BiotacGreen">
+        <color rgba="0.31 0.85 0.42 1.0"/>
+      </material>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
@@ -3168,6 +3189,9 @@
       <geometry name="rh_lfdistal_visual">
         <mesh filename="shadow_hand/meshes/f_distal/bt_sp/f_distal_bt_sp_from_dae.obj" scale="0.001 0.001 0.001"/>
       </geometry>
+      <material name="BiotacGreen">
+        <color rgba="0.31 0.85 0.42 1.0"/>
+      </material>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
@@ -3445,9 +3469,9 @@
       <geometry name="rh_thdistal_visual">
         <mesh filename="shadow_hand/meshes/th_distal/bt_sp/th_distal_bt_sp_from_dae.obj" scale="0.001 0.001 0.001"/>
       </geometry>
-      <material name="shadow_thmiddle_material">
-        <color rgba="0.2 0.2 0.2 1.0"/>
-      </material>
+      <material name="BiotacGreen">
+        <color rgba="0.31 0.85 0.42 1.0"/>
+      </material>   
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
