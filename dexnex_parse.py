@@ -93,9 +93,9 @@ print("Actuation input:", act_names)
 
 
 simulator = Simulator(diagram, diagram_context) # remember to add diagram_context to the argument
-#simulator.Initialize()
+simulator.Initialize()
 simulator.set_target_realtime_rate(1.0)
-time.sleep(5)
-sim_time = 5
+time.sleep(8)
+sim_time = 8
 simulator.AdvanceTo(sim_time)
 print("finished")
