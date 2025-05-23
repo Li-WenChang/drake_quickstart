@@ -1,12 +1,7 @@
-import copy
-import os
 import time
-
-import pydot
 from IPython.display import SVG, display
 
 import matplotlib.pyplot as plt
-import matplotlib as mpl
 import numpy as np
 
 from pydrake.geometry import (
