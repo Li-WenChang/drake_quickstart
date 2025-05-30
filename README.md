@@ -30,6 +30,9 @@ It means a required Python package is missing from your virtual environment.
 - If the import statement for 'YYYYY' is not used anywhere in the script, you can safely delete that import line.
 
 - If the package is used in the script, install it by running the following command inside your activated virtual environment:
+  ````bash
+  pip install YYYYY
+  ````
  
 After running the script, you should see a message like:
 ```` rust
