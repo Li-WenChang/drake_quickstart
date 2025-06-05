@@ -177,7 +177,7 @@ That’s all it takes to set up a basic motion controller! Again, I recommend co
 > Russ Tedrake’s response (he’s the creator of Drake) explains it in detail.
 
 
-### 2.3 Customoized System
+### 2.3 Custom System
 The main purpose of this section is to show you how to build a custom system to perform a specific task—since you won’t always find a pre-built Drake system that does exactly what you need. Additionally, I’ll introduce a useful system called `DifferentialInverseKinematicsIntegrator`, which solves inverse kinematics for you. This was actually my first time using it, and it took me over two hours to figure out how to use it properly—so if you’re feeling frustrated with those pre-built systems, you’re definitely not alone.
 #### Code Explanation
 Let's first take a look at the custom system which is relatively straight forward
