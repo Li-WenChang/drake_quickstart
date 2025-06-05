@@ -174,7 +174,8 @@ That’s all it takes to set up a basic motion controller! Again, I recommend co
 > If your scene includes more than just the robot (e.g., a box that the robot interacts with), you'll need to set up a separate plant—usually called the *controller plant*. In that case, you'll parse only the robot into the controller plant and pass it as the first argument to the `InverseDynamicsController`.  
 > For more on why this is necessary, see this helpful Stack Overflow post:  
 > [URDF file parsing error in Drake – actuators not being instantiated](https://stackoverflow.com/questions/75917723/urdf-file-parsing-error-in-drake-actuators-not-being-instantiated)  
-> Russ Tedrake’s response (he’s the creator of Drake) explains it in detail.
+> Russ Tedrake’s response (he’s the creator of Drake) explains it in detail.  
+> There's a Python script named `dexnex_2plant.py` where I demonstrate how to use this *controller plant*. This script was written some time ago and not specifically for this quickstart, so it likely won't run as-is. I recommend using it as a reference to understand how to integrate the controller plant into your own code.
 
 
 ### 2.3 Custom System
