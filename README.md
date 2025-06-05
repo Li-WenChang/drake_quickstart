@@ -303,6 +303,24 @@ class Stacker(LeafSystem):
         output.SetFromVector(stacked_vector)
 ```
 
+### 2.4 Sensor: Camera
+Sensors are essential in simulation because they allow virtual systems to perceive their environment, just like real-world robots do. The most important and intuitive sensor to me is the camera, since humans rely heavily on vision. Drake provides an official tutorial on how to set up and use cameras, so I won’t repeat the full details here. You can refer to the tutorial at the following link: [Rendering MultibodyPlant Tutorial](https://deepnote.com/workspace/Drake-0b3b2c53-a7ad-441b-80f8-bf8350752305/project/Tutorials-2b4fc509-aef2-417d-a40d-6071dfed9199/notebook/renderingmultibodyplant-dd5db510d20e4f5491d9942241ec9b9a)
+
+In the tutorial, the camera is mounted in the world frame. However, in the case of DexNex, the camera is mounted as the end-effector of the xArm6 (which functions as the robot's neck). The following code shows how to attach the camera to any link you choose:
+```python
+world_id = simulation_plant.GetBodyFrameIdOrThrow(
+                  simulation_plant.GetBodyByName("neck_cam_left_eye").index())
+
+# Transformation from the left eye link to the camera frame
+X_LE2C = xyz_rpy_deg([0, 0, 0.05], [0, 90, 180]) 
+sensor = RgbdSensor(
+    world_id,
+    X_PB=X_LE2C,
+    color_camera=color_camera,
+    depth_camera=depth_camera,
+)
+```
+
 
 
 
