@@ -11,7 +11,7 @@ cd drake_quickstart
 python3 -m venv dexnex_env      # create the python virtual env
 source dexnex_env/bin/activate  # activate the env (if python3 does not work, try python)
 pip install --upgrade pip       # (Optional but recommended)
-pip install drake               # install drake
+pip install drake==1.41.0       # Install Drake version 1.41.0 (not saying other version doesn't work)
 ````
 
 Try to run the script:
@@ -456,3 +456,13 @@ and add the following xml code at line 246 (after definition of joint 6 and befo
     
     <!-- end of transmission list list -->
 ```
+## B. drake_ros package
+This is a package integrating ROS2 and drake. We use this package to setup publisher and subscriber.
+[Github page: drake-ros](https://github.com/RobotLocomotion/drake-ros)  
+This package requires Cython and catkin_pkg to build. These versions work not sure about newer version.
+```bash
+pip install Cython==3.1.1
+pip install catkin_pkg==1.0.0
+```
+
+
