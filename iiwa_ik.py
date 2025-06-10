@@ -201,12 +201,13 @@ with open("Inverse Kinematics_Diagram.png", "wb") as f:
 
 print("Inverse Kinematics_Diagram.png")
 #-----------------------------------------------------------------------------------------------
+time.sleep(5)
 simulator = Simulator(diagram, diagram_context)
-#simulator.Initialize()
+simulator.Initialize()
 simulator.set_target_realtime_rate(1.0)
 
 
-time.sleep(5)
+
 
 finish_time = 30.0
 simulator.AdvanceTo(finish_time)

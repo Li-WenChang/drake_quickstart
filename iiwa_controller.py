@@ -131,12 +131,13 @@ with open("Controller_Diagram.png", "wb") as f:
 
 print("Controller_Diagram.png")
 #-----------------------------------------------------------------------------------------------
+time.sleep(7)
 simulator = Simulator(diagram, diagram_context)
 simulator.Initialize()
 simulator.set_target_realtime_rate(1.0)
 
 
-time.sleep(7)
+
 
 finish_time = 10.0
 simulator.AdvanceTo(finish_time)

@@ -89,11 +89,11 @@ print("Number of actuators:", len(act_names))
 print("Actuation input:", act_names)
 
 
-
+time.sleep(8)
 simulator = Simulator(diagram, diagram_context) # remember to add diagram_context to the argument
 simulator.Initialize()
 simulator.set_target_realtime_rate(1.0)
-time.sleep(8)
+
 sim_time = 8
 simulator.AdvanceTo(sim_time)
 print("finished")
