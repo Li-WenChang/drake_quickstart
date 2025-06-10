@@ -107,6 +107,11 @@ AddDefaultVisualization(builder=builder, meshcat=meshcat)
 If you comment out this line, the diagram will become much simpler.
 ![iiwa_parsing diagram](iiwa_Parsing_Diagram.png)
 
+```python
+time.sleep(5)
+```
+This line is meant to pause the program for 5 seconds to give you time to open the browser.  
+However, **it is incorrect to place it between `simulator.Initialize()` and `simulator.AdvanceTo(finish_time)`**. Doing so can cause an incorrect real-time rate in the simulation. If you find it in the wrong location, please move it **before** `simulator.Initialize()`.
 
 ### 2.2 Controlling Robots (Motion Control)
 
